@@ -28,6 +28,8 @@ func AddUser(username string, password string) error {
 	return nil
 }
 
+func 
+
 func LogIn(username string, password string) error {
 	if _, ok := users[username]; !ok {
 		if password != users[username].Password {
