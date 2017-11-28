@@ -10,7 +10,6 @@ var tweets map[int]*domain.Tweet
 var id int
 var logged string
 
-//TODO: GET TWIT BY USER Y DELETE USER
 func InitializeService() {
 	tweets = make(map[int]*domain.Tweet)
 	users = make(map[string]*domain.User)
@@ -28,15 +27,39 @@ func AddUser(username string, password string) error {
 	return nil
 }
 
-func 
+func DeleteUser(username string, password string) error {
+	if _, ok := users[username]; !ok {
+		err := errors.New("Username or password not valid")
+		return err
+	}
+	if password != users[username].Password {
+		err := errors.New("Username or password not valid")
+		return err
+	}
+	delete(users, username)
+	return nil
+}
+
+func GetTwitsByUser(username string) ([]domain.Tweet, error) {
+	if _, ok := users[username]; !ok {
+		err := errors.New("Username not valid")
+		return nil, err
+	}
+	twee := users[username].Tweets
+	return twee, nil
+
+}
 
 func LogIn(username string, password string) error {
 	if _, ok := users[username]; !ok {
-		if password != users[username].Password {
-			err := errors.New("Username or password not valid")
-			return err
-		}
+		err := errors.New("Username or password not valid")
+		return err
 	}
+	if password != users[username].Password {
+		err := errors.New("Username or password not valid")
+		return err
+	}
+	logged = username
 	return nil
 }
 
